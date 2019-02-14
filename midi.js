@@ -40,6 +40,8 @@ for(let event of parsed.tracks[0]){
     }
 }
 
+notes.push([ -1, -1, -1 ]);
+
 // fs.writeFileSync('n.json', JSON.stringify(song, ' ', 4));
 
 // console.log(song);
