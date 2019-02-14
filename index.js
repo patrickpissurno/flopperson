@@ -1,3 +1,4 @@
+const { promisify } = require('util');
 const { Gpio } = require('onoff');
 const timer1 = new (require('nanotimer'))();
 const timer2 = new (require('nanotimer'))();
@@ -52,23 +53,25 @@ class Floppy {
     constructor(directionPin, stepPin){
         this.directionPin = new Gpio(directionPin, 'out');
         this.stepPin = new Gpio(stepPin, 'out');
+        this.directionPin.write = promisify(this.directionPin.write);
+        this.stepPin.write = promisify(this.stepPin.write);
 
         this.resetMotor();
     }
 
     async resetMotor(){
-        this.directionPin.writeSync(0);
+        await this.directionPin.write(0);
         for(let i = 0; i < 10; i++){
-            this.stepPin.writeSync(1);
-            this.stepPin.writeSync(0);
+            await this.stepPin.write(1);
+            await this.stepPin.write(0);
             await sleep(1);
         }
         
-        this.directionPin.writeSync(1);
+        await this.directionPin.write(1);
         
         for(let i = 0; i < 10; i++){
-            this.stepPin.writeSync(1);
-            this.stepPin.writeSync(0);
+            await this.stepPin.write(1);
+            await this.stepPin.write(0);
             await sleep(1);
         }
 
@@ -81,22 +84,21 @@ class Floppy {
     
         const endTime = millis() + length;
         while (millis() < endTime){
-            this.directionPin.writeSync(dir);
+            await this.directionPin.write(dir);
             
             //dir = 1 ? 0 : 1
             dir = 1 - dir;
     
-            this.stepPin.writeSync(1);
-            this.stepPin.writeSync(0);
+            await this.stepPin.write(1);
+            await this.stepPin.write(0);
             await microsleep(pause);
         }
     }
 
     async rest(length){
         const endTime = millis() + length;
-        while (millis() < endTime){
+        while (millis() < endTime)
             await sleep(5);
-        }
     }
 
     /**
@@ -121,7 +123,7 @@ class Floppy {
 }
 
 const drive1 = new Floppy(17, 18);
-const drive2 = new Floppy(22, 23);
+// const drive2 = new Floppy(22, 23);
 const song = require('./hardcoded_songs/imperial_march');
 drive1.playSong(song.notes, song.tempo);
-drive2.playSong(song.notes, song.tempo);
+// drive2.playSong(song.notes, song.tempo);
