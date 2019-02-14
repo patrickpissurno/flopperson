@@ -1,7 +1,7 @@
 const fs = require('fs');
 const parse = require('midi-file-parser');
 
-const file = fs.readFileSync(process.argv[4] ? process.argv[2] : 'octave_demo.mid', 'binary');
+const file = fs.readFileSync(process.argv[4] ? process.argv[4] : 'octave_demo.mid', 'binary');
 const parsed = parse(file);
 // fs.writeFileSync('octave_demo.json', JSON.stringify(parsed, ' ', 4));
 
