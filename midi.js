@@ -114,6 +114,14 @@ if(remove != -1)
 //filter too-quick notes feature
 song.notes = song.notes.filter(x => x[2] >= 60);
 
+//auto scale BPM so that tracks play clearer
+let lowest = song.notes.reduce((prev, item) => item[2] < prev[2] ? item : prev)[2];
+if(lowest < 80)
+    song.notes = song.notes.map(x => {
+        x[2] *= 80 / lowest;
+        return x;
+    })
+
 song.notes.push([ -1, -1, -1 ]);
 
 // fs.writeFileSync('n.json', JSON.stringify(song, ' ', 4));
