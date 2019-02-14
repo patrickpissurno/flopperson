@@ -1,3 +1,8 @@
+const {
+    Cn, Cs, Dn, Ds, En, Fn, Fs, Gn, Gs, An, As, Bn, Zz,
+    Bs, Df, Dn2, Ef, En2, Es, Gf, Gn2, Af, An2, Bf, Bn2, Zz2
+} = require('../notes');
+
 module.exports = {
     tempo: 104 * 14,
     notes: [
