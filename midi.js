@@ -1,8 +1,9 @@
 const fs = require('fs');
 const parse = require('midi-file-parser');
 
-const file = fs.readFileSync('imperial_march.mid', 'binary');
+const file = fs.readFileSync('octave_demo.mid', 'binary');
 const parsed = parse(file);
+// fs.writeFileSync('octave_demo.json', JSON.stringify(parsed, ' ', 4));
 
 const { Zz } = require('./notes');
 
@@ -16,7 +17,7 @@ const notes = [
 ];
 
 let playing = null;
-for(let event of parsed.tracks[3]){
+for(let event of parsed.tracks[0]){
     if(event.subtype == 'noteOn' || event.subtype == 'noteOff'){
         const note = (event.noteNumber - 24) % 12;
         const octave = 3;
@@ -25,7 +26,7 @@ for(let event of parsed.tracks[3]){
         if(event.subtype == 'noteOn'){
             if(playing)
                 song.notes[song.notes.length - 1][2] = event.deltaTime;
-            else
+            else if(event.deltaTime > 0)
                 song.notes.push([ Zz, 0, event.deltaTime ]);
 
             song.notes.push([ note, octave, 0 ]);
@@ -38,6 +39,8 @@ for(let event of parsed.tracks[3]){
         }
     }
 }
+
+// fs.writeFileSync('n.json', JSON.stringify(song, ' ', 4));
 
 // console.log(song);
 const Floppy = require('./floppy');
