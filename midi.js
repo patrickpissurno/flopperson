@@ -20,7 +20,7 @@ let playing = null;
 for(let event of parsed.tracks[0]){
     if(event.subtype == 'noteOn' || event.subtype == 'noteOff'){
         const note = (event.noteNumber - 24) % 12;
-        const octave = 3;
+        const octave = 2;
         // console.log('PLAY: ' + event.subtype + '. Note: ' + notes[note]);
 
         if(event.subtype == 'noteOn'){
