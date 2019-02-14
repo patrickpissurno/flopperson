@@ -100,7 +100,7 @@ for(let i = 0; i < song.notes.length; i++)
     else
         break;
 if(remove != -1)
-    song.notes.splice(0, i);
+    song.notes.splice(0, remove);
 
 song.notes.push([ -1, -1, -1 ]);
 
