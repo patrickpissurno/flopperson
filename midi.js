@@ -4,7 +4,7 @@ const parse = require('midi-file-parser');
 const fname = process.argv[4] ? process.argv[4] : 'octave_demo.mid';
 const file = fs.readFileSync(fname, 'binary');
 const parsed = parse(file);
-fs.writeFileSync(fname + '.json', JSON.stringify(parsed, ' ', 4));
+// fs.writeFileSync(fname + '.json', JSON.stringify(parsed, ' ', 4));
 
 const { Zz } = require('./notes');
 
@@ -52,12 +52,14 @@ function ticksToSeconds(ticks, header){
 	return (60 / header.bpm) * (ticks / header.PPQ);
 }
 
+let transposeDown = false;
 let playing = null;
 for(let event of parsed.tracks[process.argv[5] != null ? process.argv[5] : 0]){
     if(event.subtype == 'noteOn' || event.subtype == 'noteOff'){
         const note = (event.noteNumber - 24) % 12;
         let octave = Math.floor((event.noteNumber - 24) / 12);
-        octave = octave > 3 ? 3 : octave;
+        if(octave > 3)
+            transposeDown = true;
 
         if(event.subtype == 'noteOn'){
             if(playing)
@@ -81,6 +83,12 @@ for(let event of parsed.tracks[process.argv[5] != null ? process.argv[5] : 0]){
 const header = parseHeader(parsed);
 song.notes = song.notes.map(x => {
     x[2] = ticksToSeconds(x[2], header) * 1000;
+
+    //autotranspose feature
+    if(transposeDown)
+        x[1] = x[1] > 0 ? x[1] - 1 : 0;
+    if(x[1] > 3)
+        x[1] = 3;
     return x;
 });
 
