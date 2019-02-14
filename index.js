@@ -123,7 +123,7 @@ class Floppy {
 }
 
 const drive1 = new Floppy(17, 18);
-// const drive2 = new Floppy(22, 23);
+const drive2 = new Floppy(22, 23);
 const song = require('./hardcoded_songs/imperial_march');
 drive1.playSong(song.notes, song.tempo);
-// drive2.playSong(song.notes, song.tempo);
+drive2.playSong(song.notes, song.tempo);
