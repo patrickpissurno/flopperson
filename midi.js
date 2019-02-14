@@ -17,7 +17,7 @@ const notes = [
 ];
 
 let playing = null;
-for(let event of parsed.tracks[0]){
+for(let event of parsed.tracks[process.argv[5] != null ? process.argv[5] : 0]){
     if(event.subtype == 'noteOn' || event.subtype == 'noteOff'){
         const note = (event.noteNumber - 24) % 12;
         const octave = Math.floor((event.noteNumber - 24) / 12);
