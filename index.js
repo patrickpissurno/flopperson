@@ -122,7 +122,7 @@ class Floppy {
     }
 }
 
-const drive1 = new Floppy(parseInt(process.argv[1]), parseInt(process.argv[2]));
+const drive1 = new Floppy(parseInt(process.argv[2]), parseInt(process.argv[3]));
 // const drive2 = new Floppy(22, 23);
 const song = require('./hardcoded_songs/imperial_march');
 drive1.playSong(song.notes, song.tempo);
