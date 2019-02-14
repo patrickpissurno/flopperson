@@ -1,0 +1,28 @@
+{
+  "name": "flopperson",
+  "version": "1.0.0",
+  "description": "Make floppy great again",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patrickpissurno/flopperson.git"
+  },
+  "keywords": [
+    "flopperson",
+    "floppy",
+    "raspberry",
+    "pi"
+  ],
+  "author": "Patrick Pissurno",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/patrickpissurno/flopperson/issues"
+  },
+  "homepage": "https://github.com/patrickpissurno/flopperson#readme",
+  "dependencies": {
+    "rpi-gpio": "^2.1.3"
+  }
+}
