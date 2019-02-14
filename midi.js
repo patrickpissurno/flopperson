@@ -96,7 +96,7 @@ song.notes = song.notes.map(x => {
 let remove = -1;
 for(let i = 0; i < song.notes.length; i++)
     if(song.notes[i][0] == Zz)
-        remove = i;
+        remove = i + 1;
     else
         break;
 if(remove != -1)
