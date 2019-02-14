@@ -85,8 +85,8 @@ song.notes = song.notes.map(x => {
 
 song.notes.push([ -1, -1, -1 ]);
 
-fs.writeFileSync('n.json', JSON.stringify(song, ' ', 4));
+// fs.writeFileSync('n.json', JSON.stringify(song, ' ', 4));
 
-// const Floppy = require('./floppy');
-// const drive = new Floppy(parseInt(process.argv[2]), parseInt(process.argv[3]));
-// drive.playSong(song.notes, song.tempo);
+const Floppy = require('./floppy');
+const drive = new Floppy(parseInt(process.argv[2]), parseInt(process.argv[3]));
+drive.playSong(song.notes, song.tempo);
