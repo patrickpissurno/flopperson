@@ -82,7 +82,7 @@ class Floppy {
     }
 
     async playNote(note, octave, length){
-        console.log('Note: ' + notesNames[note] + octave);   
+        console.log('Note: ' + notesNames[note] + (octave + 1));   
 
         let dir = 1;
         const pause = floppyDelay[octave][note] * 10;
