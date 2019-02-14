@@ -16,7 +16,7 @@ const notes = [
 ];
 
 let playing = null;
-for(let event of parsed.tracks[2]){
+for(let event of parsed.tracks[3]){
     if(event.subtype == 'noteOn' || event.subtype == 'noteOff'){
         const note = (event.noteNumber - 24) % 12;
         const octave = 3;
@@ -31,8 +31,6 @@ for(let event of parsed.tracks[2]){
             song.notes.push([ note, octave, 0 ]);
 
             playing = { note, deltaTime: event.deltaTime };
-
-            console.log(notes[note]);
         }
         else {
             song.notes[song.notes.length - 1][2] += event.deltaTime;
