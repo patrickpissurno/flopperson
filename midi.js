@@ -43,7 +43,7 @@ for(let event of parsed.tracks[process.argv[5] != null ? process.argv[5] : 0]){
 }
 
 song.notes = song.notes.map(x => {
-    x[2] *= 307.692;
+    x[2] = (14500 * x[2]) / 4608;
     return x;
 });
 
