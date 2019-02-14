@@ -23,6 +23,6 @@
   },
   "homepage": "https://github.com/patrickpissurno/flopperson#readme",
   "dependencies": {
-    "rpi-gpio": "^2.1.3"
+    "onoff": "^3.2.6"
   }
 }
