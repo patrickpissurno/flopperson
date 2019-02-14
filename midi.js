@@ -52,9 +52,16 @@ function ticksToSeconds(ticks, header){
 	return (60 / header.bpm) * (ticks / header.PPQ);
 }
 
+function getFirstNonEmptyTrack(){
+    for(let i = 0; i < parsed.tracks.length; i++)
+        if(parsed.tracks[i].filter(x => event.subtype == 'noteOn').length > 0)
+            return i;
+    return 0;
+}
+
 let transposeDown = false;
 let playing = null;
-for(let event of parsed.tracks[process.argv[5] != null ? process.argv[5] : 0]){
+for(let event of parsed.tracks[process.argv[5] != null ? process.argv[5] : getFirstNonEmptyTrack()]){
     if(event.subtype == 'noteOn' || event.subtype == 'noteOff'){
         const note = (event.noteNumber - 24) % 12;
         let octave = Math.floor((event.noteNumber - 24) / 12);
