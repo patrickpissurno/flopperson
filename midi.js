@@ -1,6 +1,6 @@
 const fs = require('fs');
 const parse = require('midi-file-parser');
-const Floppy = require('./floppy');
+// const Floppy = require('./floppy');
 
 const file = fs.readFileSync('imperial_march.mid', 'binary');
 const parsed = parse(file);
@@ -8,7 +8,7 @@ const parsed = parse(file);
 const { Zz } = require('./notes');
 
 const song = {
-    tempo: parsed.header.ticksPerBeat * 8,
+    tempo: 60000,
     notes: []
 };
 
@@ -31,6 +31,8 @@ for(let event of parsed.tracks[2]){
             song.notes.push([ note, 2, 0 ]);
 
             playing = { note, deltaTime: event.deltaTime };
+
+            console.log(notes[note]);
         }
         else {
             song.notes[song.notes.length - 1][2] += event.deltaTime;
@@ -39,6 +41,6 @@ for(let event of parsed.tracks[2]){
     }
 }
 
-// console.log(song);
-const drive = new Floppy(parseInt(process.argv[2]), parseInt(process.argv[3]));
-drive.playSong(song.notes, song.tempo);
+console.log(song);
+// const drive = new Floppy(parseInt(process.argv[2]), parseInt(process.argv[3]));
+// drive.playSong(song.notes, song.tempo);
