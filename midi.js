@@ -89,6 +89,9 @@ for(let event of parsed.tracks[process.argv[5] != null ? process.argv[5] : getFi
     }
 }
 
+if(song.notes.length == 0)
+    return console.log('empty track');
+
 const header = parseHeader(parsed);
 song.notes = song.notes.map(x => {
     x[2] = ticksToSeconds(x[2], header) * 1000;
