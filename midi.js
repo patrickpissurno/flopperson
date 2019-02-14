@@ -54,7 +54,7 @@ function ticksToSeconds(ticks, header){
 
 function getFirstNonEmptyTrack(){
     for(let i = 0; i < parsed.tracks.length; i++)
-        if(parsed.tracks[i].filter(x => event.subtype == 'noteOn').length > 0)
+        if(parsed.tracks[i].filter(event => event.subtype == 'noteOn').length > 0)
             return i;
     return 0;
 }
