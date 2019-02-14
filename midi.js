@@ -92,6 +92,16 @@ song.notes = song.notes.map(x => {
     return x;
 });
 
+//autotrim feature
+let remove = -1;
+for(let i = 0; i < song.notes.length; i++)
+    if(song.notes[i][0] == Zz)
+        remove = i;
+    else
+        break;
+if(remove != -1)
+    song.notes.splice(0, i);
+
 song.notes.push([ -1, -1, -1 ]);
 
 // fs.writeFileSync('n.json', JSON.stringify(song, ' ', 4));
