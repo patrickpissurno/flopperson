@@ -112,7 +112,7 @@ if(remove != -1)
     song.notes.splice(0, remove);
 
 //filter too-quick notes feature
-song.notes = song.notes.filter(x => x[2] >= 200);
+song.notes = song.notes.filter(x => x[2] >= 100);
 
 song.notes.push([ -1, -1, -1 ]);
 
