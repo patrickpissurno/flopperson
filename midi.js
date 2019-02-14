@@ -62,8 +62,10 @@ for(let event of parsed.tracks[process.argv[5] != null ? process.argv[5] : 0]){
             transposeDown = true;
 
         if(event.subtype == 'noteOn'){
-            if(playing)
-                song.notes[song.notes.length - 1][2] = event.deltaTime;
+            if(playing){
+                song.notes[song.notes.length - 1][2] += event.deltaTime;
+                playing = null;
+            }
             else if(event.deltaTime > 0)
                 song.notes.push([ Zz, 0, event.deltaTime ]);
 
