@@ -112,10 +112,10 @@ class Floppy {
             const length = song[i][2] * noteLen;
 
             if (song[i][0] == Zz)
-                await rest(length);
+                await this.rest(length);
             else {
-                await playNote(song[i][0], song[i][1], (7 * length) / 8);
-                await rest(length / 8);
+                await this.playNote(song[i][0], song[i][1], (7 * length) / 8);
+                await this.rest(length / 8);
             }
         }
     }
