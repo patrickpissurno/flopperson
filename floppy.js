@@ -48,6 +48,9 @@ for (let octave = 0; octave < 4; octave++)
     for (let note = 0; note < 12; note++)
         floppyDelay[octave][note] = floppyConv / freq[octave][note];
 
+const notesNames = [
+    'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'
+];
 
 class Floppy {
     constructor(directionPin, stepPin){
@@ -79,6 +82,8 @@ class Floppy {
     }
 
     async playNote(note, octave, length){
+        console.log('Note: ' + notesNames[note] + octave);   
+
         let dir = 1;
         const pause = floppyDelay[octave][note] * 10;
     
