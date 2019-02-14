@@ -111,6 +111,9 @@ for(let i = 0; i < song.notes.length; i++)
 if(remove != -1)
     song.notes.splice(0, remove);
 
+//filter too-quick notes feature
+song.notes = song.notes.filter(x => x[2] >= 200);
+
 song.notes.push([ -1, -1, -1 ]);
 
 // fs.writeFileSync('n.json', JSON.stringify(song, ' ', 4));
