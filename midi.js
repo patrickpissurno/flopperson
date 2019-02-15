@@ -60,6 +60,10 @@ async function parseMidi(fname = 'octave_demo.mid', track_id = -1, opts = { tran
 
             if(event.subtype == 'noteOn'){
                 if(playing){
+                    if(!opts.forcePlayingAllNotes){
+                        song.notes[song.notes.length - 1][2] += event.deltaTime;
+                        continue;
+                    }
                     song.notes[song.notes.length - 1][2] = event.deltaTime;
                 }
                 else if(event.deltaTime > 0)
@@ -104,17 +108,18 @@ async function parseMidi(fname = 'octave_demo.mid', track_id = -1, opts = { tran
     }
 
     //filter too-quick notes feature
-    if(opts.filter)
+    if(opts.filter){
         song.notes = song.notes.filter(x => x[2] >= 60);
 
-    //auto scale BPM so that tracks play clearer
-    if(opts.speedScale){
-        let lowest = song.notes.reduce((prev, item) => item[2] < prev[2] ? item : prev)[2];
-        if(lowest < 80)
-            song.notes = song.notes.map(x => {
-                x[2] *= 80 / lowest;
-                return x;
-            })
+        //auto scale BPM so that tracks play clearer
+        if(opts.speedScale){
+            let lowest = song.notes.reduce((prev, item) => item[2] < prev[2] ? item : prev)[2];
+            if(lowest < 80)
+                song.notes = song.notes.map(x => {
+                    x[2] *= 80 / lowest;
+                    return x;
+                })
+        }
     }
 
     song.notes.push([ -1, -1, -1 ]);
