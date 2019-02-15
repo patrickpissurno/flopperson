@@ -13,35 +13,26 @@ const song = {
     notes: []
 };
 
-const notes = [
-    'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'
-];
-
 /**
  *  Parse tempo and time signature from the midiJson
  *  from: https://github.com/Tonejs/MidiConvert/blob/master/src/Header.js
  */
 function parseHeader(data){
-	var ret = {
+	const ret = {
 		PPQ : data.header.ticksPerBeat
-	}
-	for (var i = 0; i < data.tracks.length; i++){
-		var track = data.tracks[i]
-		for (var j = 0; j < track.length; j++){
-			var datum = track[j]
+    };
+    
+	for (let track of data.tracks)
+		for (let datum of track)
 			if (datum.type === "meta"){
-				if (datum.subtype === "timeSignature"){
-					ret.timeSignature = [datum.numerator, datum.denominator]
-				} else if (datum.subtype === "setTempo"){
-					if (!ret.bpm){
-						ret.bpm = 60000000 / datum.microsecondsPerBeat
-					}
-				}
-			}
-		}
-	}
-	ret.bpm = ret.bpm || 120
-	return ret
+				if (datum.subtype === "timeSignature")
+					ret.timeSignature = [datum.numerator, datum.denominator];
+				else if (datum.subtype === "setTempo" && !ret.bpm)
+                    ret.bpm = 60000000 / datum.microsecondsPerBeat;
+            }
+            
+	ret.bpm = ret.bpm || 120;
+	return ret;
 }
 
 /**
@@ -74,9 +65,7 @@ for(let event of parsed.tracks[process.argv[5] != null ? process.argv[5] : getFi
                 playing = null;
             }
             else if(event.deltaTime > 0)
-                song.notes.push([ Zz, 0, event.deltaTime ]);
-
-            // console.log('Note: ' + notes[note] + octave);            
+                song.notes.push([ Zz, 0, event.deltaTime ]);       
 
             song.notes.push([ note, octave, 0 ]);
 
@@ -99,8 +88,8 @@ song.notes = song.notes.map(x => {
     //autotranspose feature
     if(transposeDown)
         x[1] = x[1] > 0 ? x[1] - 1 : 0;
-    if(x[1] > 3)
-        x[1] = 3;
+    if(x[1] > 4)
+        x[1] = 4;
     return x;
 });
 

@@ -29,7 +29,8 @@ const freq = [
     [ 13081,13859,14683,15556,16481,17461,18500,19600,20765,22000,23308,24694 ],
     [ 26163,27718,29366,31113,32963,34923,36999,39200,41530,44000,46616,49388 ],
     [ 52325,55437,58733,62225,65925,69846,73999,78399,83061,88000,93233,98777 ],
-    [ 104650,110873,117466,124451,131851,139691,147998,156798,166122,176000,186466,197553 ]
+    [ 104650,110873,117466,124451,131851,139691,147998,156798,166122,176000,186466,197553 ],
+    [ 209300,221746,234931,248901,263702,279382,295995,313596,332243,352000,372931,395106 ]
 ];
 
 /**
@@ -44,8 +45,8 @@ const floppyConv = 31400000;
 
 // Calculate all our floppy delays at the start
 const floppyDelay = JSON.parse(JSON.stringify(freq));
-for (let octave = 0; octave < 4; octave++)
-    for (let note = 0; note < 12; note++)
+for (let octave = 0; octave < freq.length; octave++)
+    for (let note = 0; note < freq[0].length; note++)
         floppyDelay[octave][note] = floppyConv / freq[octave][note];
 
 const notesNames = [
