@@ -1,16 +1,7 @@
 const { promisify } = require('util');
 const { Gpio } = process.platform == 'linux' ? require('onoff') : { Gpio: function(){ this.write = (err, cb) => cb() } };
-const timer1 = new (require('nanotimer'))();
-const timer2 = new (require('nanotimer'))();
+const nanotimer = require('nanotimer');
 const timestamp = new Date();
-
-function sleep(ms) {
-    // return new Promise(resolve => setTimeout(resolve, ms));
-    return new Promise(resolve => timer1.setTimeout(resolve, '', ms + 'm'));
-}
-function microsleep(us) {
-    return new Promise(resolve => timer2.setTimeout(resolve, '', us + 'u'));
-}
 
 function millis(){
     return new Date() - timestamp;
@@ -60,6 +51,17 @@ class Floppy {
         this.directionPin.write = promisify(this.directionPin.write);
         this.stepPin.write = promisify(this.stepPin.write);
 
+        this._timer1 = new nanotimer();
+        this._timer2 = new nanotimer();
+
+        this.sleep = (ms) => {
+            // return new Promise(resolve => setTimeout(resolve, ms));
+            return new Promise(resolve => this._timer1.setTimeout(resolve, '', ms + 'm'));
+        };
+        this.microsleep = (us) => {
+            return new Promise(resolve => this._timer2.setTimeout(resolve, '', us + 'u'));
+        };
+
         this.resetMotor();
     }
 
@@ -68,7 +70,7 @@ class Floppy {
         for(let i = 0; i < 10; i++){
             await this.stepPin.write(1);
             await this.stepPin.write(0);
-            await sleep(1);
+            await this.sleep(1);
         }
         
         await this.directionPin.write(1);
@@ -76,10 +78,10 @@ class Floppy {
         for(let i = 0; i < 10; i++){
             await this.stepPin.write(1);
             await this.stepPin.write(0);
-            await sleep(1);
+            await this.sleep(1);
         }
 
-        await sleep(400);
+        await this.sleep(400);
     }
 
     async playNote(note, octave, length){
@@ -97,14 +99,14 @@ class Floppy {
     
             await this.stepPin.write(1);
             await this.stepPin.write(0);
-            await microsleep(pause);
+            await this.microsleep(pause);
         }
     }
 
     async rest(length){
         const endTime = millis() + length;
         while (millis() < endTime)
-            await sleep(5);
+            await this.sleep(5);
     }
 
     /**
