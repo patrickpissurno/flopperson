@@ -101,6 +101,11 @@ async function playMidi(pins, filename = path.join(__dirname, 'octave_demo.mid')
 
     const drives = pins.map(pin => new Floppy(pin.direction, pin.step));
 
-    for(let i = 0; i < songs.length; i++)
-        drives[i].playSong(songs[i].notes, songs[i].tempo);
+    try {
+        for(let i = 0; i < songs.length; i++)
+            drives[i].playSong(songs[i].notes, songs[i].tempo);
+    }
+    catch(ex){
+        return error('Please specify valid track');
+    }
 }
