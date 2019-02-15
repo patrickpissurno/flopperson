@@ -2,6 +2,8 @@
 
 const program = require('commander');
 const fs = require('fs');
+const path = require('path');
+
 const Floppy = require('./floppy');
 const { parseMidi } = require('./midi');
 
@@ -88,7 +90,7 @@ function playDemo(pins, demo = 'imperial_march'){
     }
 }
 
-async function playMidi(pins, filename = 'octave_demo.mid', opts){
+async function playMidi(pins, filename = path.join(__dirname, 'octave_demo.mid'), opts){
     let songs;
     try {
         songs = await Promise.all(opts.track.map(async track => parseMidi(filename, track, opts)));
