@@ -7,7 +7,7 @@ Make floppy music great again (pun intended)
 3. Run `npm install -g flopperson`
 4. Run `flopperson --help` for the latest help
 ```
-Usage: index [options] [midi_file]
+Usage: flopperson [options] [midi_file]
 
 Options:
   -d, --direction-pin <pin>[,pin2,pin3...]  Floppy direction pins (comma-separated list)
@@ -17,6 +17,7 @@ Options:
   --no-trim                                 Disables auto-trim feature
   --no-filter                               Disables too-quick note filter feature
   --no-speed-scale                          Disables track speed scale feature
+  --overlap-mode-alt                        Enable alternative overlap handling mode
   --demo [song]                             The demo song to be played
   --config <filename>                       Load from config file
   -h, --help                                output usage information
@@ -29,7 +30,7 @@ This tool uses the [BCM convention](https://pinout.xyz/).
 ## Examples
 - Play Imperial March: `flopperson --direction-pin 17 --step-pin 18 --demo`
 - Play C major scale: `flopperson --direction-pin 17 --step-pin 18`
-- Play a MIDI file: `flopperson --direction-pin 17 --step-pin 18 skyrim.mid`
+- Play a MIDI file: `flopperson --d 17 -s 18 skyrim.mid`
 
 ## Acknowledgement
 Some of this code was based on the awesome work of other people, like:
