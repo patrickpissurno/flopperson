@@ -1,5 +1,5 @@
 const { promisify } = require('util');
-const { Gpio } = require('onoff');
+const { Gpio } = process.platform == 'linux' ? require('onoff') : { Gpio: function(){ this.write = (err, cb) => cb() } };
 const timer1 = new (require('nanotimer'))();
 const timer2 = new (require('nanotimer'))();
 const timestamp = new Date();
