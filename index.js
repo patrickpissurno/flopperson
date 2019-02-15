@@ -21,7 +21,7 @@ program
     .option('--no-trim', 'Disables auto-trim feature')
     .option('--no-filter', 'Disables too-quick note filter feature')
     .option('--no-speed-scale', 'Disables track speed scale feature')
-    .option('--force-all-notes', 'Force playing all the notes')
+    .option('--overlap-mode-alt', 'Enable alternative overlap handling mode')
     .option('--demo [song]', 'The demo song to be played')
     .option('--config <filename>', 'Load from config file')
     .action(function(midi_file) {
@@ -70,7 +70,7 @@ program
         for(let i = 0; i < program.directionPin.length; i++)
             pins.push({ direction: program.directionPin[i], step: program.stepPin[i] });
 
-        if(program.forceAllNotes)
+        if(program.overlapModeAlt)
             program.filter = false;
 
         if(program.demo)
