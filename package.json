@@ -1,6 +1,6 @@
 {
   "name": "flopperson",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Make floppy music great again",
   "main": "index.js",
   "scripts": {
