@@ -66,8 +66,12 @@ async function parseMidi(fname = 'octave_demo.mid', track_id = -1, opts = { tran
                     }
                     song.notes[song.notes.length - 1][2] = event.deltaTime;
                 }
-                else if(event.deltaTime > 0)
-                    song.notes.push([ Zz, 0, event.deltaTime ]);       
+                else if(event.deltaTime > 0){
+                    if(song.notes[song.notes.length - 1][2] == 0)
+                        song.notes[song.notes.length - 1][2] = event.deltaTime;
+                    else
+                        song.notes.push([ Zz, 0, event.deltaTime ]);
+                }       
 
                 song.notes.push([ note, octave, 0 ]);
 
