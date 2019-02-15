@@ -31,6 +31,14 @@ This tool uses the [BCM convention](https://pinout.xyz/).
 - Play C major scale: `flopperson --direction-pin 17 --step-pin 18`
 - Play a MIDI file: `flopperson --direction-pin 17 --step-pin 18 skyrim.mid`
 
+## Acknowledgement
+Some of this code was based on the awesome work of other people, like:
+- [@KristobalJunta](https://github.com/KristobalJunta/floppymusic)
+- [@Tonejs](https://github.com/Tonejs/MidiConvert)
+- [@fivdi](https://github.com/fivdi/onoff)
+
+Thank you guys! This project wouldn't be possible without you.
+
 ## License
 MIT License
 
