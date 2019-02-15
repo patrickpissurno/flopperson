@@ -1,7 +1,7 @@
 {
   "name": "flopperson",
   "version": "1.0.0",
-  "description": "Make floppy great again",
+  "description": "Make floppy music great again",
   "main": "index.js",
   "scripts": {
     "start": "node index"
@@ -13,8 +13,12 @@
   "keywords": [
     "flopperson",
     "floppy",
+    "music",
+    "player",
     "raspberry",
-    "pi"
+    "pi",
+    "node",
+    "easy"
   ],
   "author": "Patrick Pissurno",
   "license": "MIT",
