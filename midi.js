@@ -1,7 +1,7 @@
 const fs = require('fs');
 const parse = require('midi-file-parser');
 
-async function parseMidi(fname = 'octave_demo.mid', track_id = -1, opts = { transpose: true, trim: true, filter: true, speedScale: true }){
+async function parseMidi(fname = 'octave_demo.mid', track_id = -1, opts = { transpose: true, trim: true, filter: true, speedScale: true, forcePlayingAllNotes: false }){
     const file = fs.readFileSync(fname, 'binary');
     const parsed = parse(file);
 
@@ -61,7 +61,8 @@ async function parseMidi(fname = 'octave_demo.mid', track_id = -1, opts = { tran
             if(event.subtype == 'noteOn'){
                 if(playing){
                     song.notes[song.notes.length - 1][2] += event.deltaTime;
-                    playing = null;
+                    if(!opts.forcePlayingAllNotes)
+                        continue;
                 }
                 else if(event.deltaTime > 0)
                     song.notes.push([ Zz, 0, event.deltaTime ]);       
